@@ -31,19 +31,21 @@ func ExamplePropagateValues() {
 
 func Test_Propagate_same_struct(t *testing.T) {
 	type A struct {
-		ID    int
-		Name  string
-		Age   int
-		Email string
-		IQ    int
+		ID          int
+		Name        string
+		Age         int
+		Email       string
+		IQ          int
+		_unexported int
 	}
 
 	src := &A{
-		ID:    1,
-		Name:  "foo",
-		Age:   10,
-		Email: "foo@example.com",
-		IQ:    150,
+		ID:          1,
+		Name:        "foo",
+		Age:         10,
+		Email:       "foo@example.com",
+		IQ:          150,
+		_unexported: 10,
 	}
 	dst := &A{
 		ID:    2,

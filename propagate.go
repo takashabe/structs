@@ -36,6 +36,10 @@ func PropagateValues[T, T2 any](src T, dst T2, opts ...PropagateOption) (T2, err
 
 	fields := reflect.VisibleFields(sv.Type())
 	for _, f := range fields {
+		if !f.IsExported() {
+			continue
+		}
+
 		canSet := true
 		for _, opt := range opts {
 			ok := opt(sv, f)
