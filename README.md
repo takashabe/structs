@@ -8,7 +8,7 @@
 
 ### propagation struct fields
 
-In the same struct, struct fields can be copied from struct variable A to B.
+struct fields in the struct can be copied from variable A to B.
 
 #### Usage
 
