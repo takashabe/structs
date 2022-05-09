@@ -24,7 +24,7 @@ func PropagateWithValue(v any) PropagateOption {
 }
 
 // PropagateValues copy from `src` field values to `dst`.
-func PropagateValues[T any](src, dst T, opts ...PropagateOption) (T, error) {
+func PropagateValues[T, T2 any](src T, dst T2, opts ...PropagateOption) (T2, error) {
 	sv, err := getStruct(reflect.ValueOf(src))
 	if err != nil {
 		return dst, err
@@ -49,6 +49,10 @@ func PropagateValues[T any](src, dst T, opts ...PropagateOption) (T, error) {
 		}
 
 		df := dv.FieldByName(f.Name)
+		// field not exists
+		if df == (reflect.Value{}) {
+			continue
+		}
 		df.Set(sv.FieldByName(f.Name))
 	}
 	return dst, nil
