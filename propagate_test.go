@@ -1,6 +1,7 @@
 package structs_test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -47,4 +48,25 @@ func TestPropagate(t *testing.T) {
 	)
 	assert.NoError(t, err)
 	assert.Equal(t, want, got)
+}
+
+func ExamplePropagateValues() {
+	type User struct {
+		ID   int
+		Name string
+		Age  int
+	}
+
+	a := &User{ID: 1, Name: "foo", Age: 1}
+	b := &User{ID: 2, Name: "bar", Age: 2}
+	got, _ := structs.PropagateValues(
+		a,
+		b,
+		structs.PropagateWithIgnoreFields("ID", "Name"),
+		structs.PropagateWithValue(1),
+	)
+	fmt.Printf("%+v", got)
+
+	// Output:
+	// &{ID:2 Name:bar Age:1}
 }
