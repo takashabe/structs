@@ -5,6 +5,7 @@
 ## Features
 
 - propagation struct fields
+- output diff struct fields
 
 ### propagation struct fields
 
@@ -43,3 +44,27 @@ func ExamplePropagateValues() {
 }
 ```
 
+### output diff struct fields
+
+```go
+func ExampleDiffFields() {
+	type User struct {
+		ID     int         `json:"id"`
+		Name   string      `json:"name"`
+		Age    int         `json:"age"`
+		Gender null.String `json:"gender"`
+	}
+
+	a := &User{ID: 1, Name: "foo", Age: 1, Gender: null.StringFrom("Male")}
+	b := &User{ID: 2, Name: "bar", Age: 2}
+	got, _ := structs.DiffFields(
+		a,
+		b,
+		structs.WithIgnoreFields("ID", "Gender"),
+	)
+	fmt.Printf("%+v", got)
+
+	// Output:
+	// [name age]
+}
+```
