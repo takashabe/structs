@@ -46,6 +46,10 @@ func ExamplePropagateValues() {
 
 ### output diff struct fields
 
+provide output of field names with different values
+
+#### Usage
+
 ```go
 func ExampleDiffFields() {
 	type User struct {
