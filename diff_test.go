@@ -23,12 +23,11 @@ func ExampleDiffFields() {
 	got, _ := structs.DiffFields(
 		a,
 		b,
-		structs.WithIgnoreFields("ID", "Gender"),
 	)
 	fmt.Printf("%+v", got)
 
 	// Output:
-	// [name]
+	// [id name gender]
 }
 
 func Test_DiffFields_withOptions(t *testing.T) {

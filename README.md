@@ -60,15 +60,14 @@ func ExampleDiffFields() {
 	}
 
 	a := &User{ID: 1, Name: "foo", Age: 1, Gender: null.StringFrom("Male")}
-	b := &User{ID: 2, Name: "bar", Age: 2}
+	b := &User{ID: 2, Name: "bar", Age: 1}
 	got, _ := structs.DiffFields(
 		a,
 		b,
-		structs.WithIgnoreFields("ID", "Gender"),
 	)
 	fmt.Printf("%+v", got)
 
 	// Output:
-	// [name age]
+	// [id name gender]
 }
 ```
