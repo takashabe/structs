@@ -39,6 +39,11 @@ func DiffFields[T, T2 any](src T, dst T2, opts ...Option) ([]string, error) {
 		if df == (reflect.Value{}) {
 			continue
 		}
+
+		if reflect.DeepEqual(sv.FieldByName(f.Name).Interface(), df.Interface()) {
+			continue
+		}
+
 		diffField := f.Name
 		if tag, ok := f.Tag.Lookup(DiffTagName); ok {
 			diffField = tag
